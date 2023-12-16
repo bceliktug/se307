@@ -1,0 +1,15 @@
+/home/ersinware/repositories/monopoly/bin/Debug/net6.0/monopoly
+/home/ersinware/repositories/monopoly/bin/Debug/net6.0/monopoly.deps.json
+/home/ersinware/repositories/monopoly/bin/Debug/net6.0/monopoly.runtimeconfig.json
+/home/ersinware/repositories/monopoly/bin/Debug/net6.0/monopoly.dll
+/home/ersinware/repositories/monopoly/bin/Debug/net6.0/ref/monopoly.dll
+/home/ersinware/repositories/monopoly/bin/Debug/net6.0/monopoly.pdb
+/home/ersinware/repositories/monopoly/obj/Debug/net6.0/monopoly.csproj.AssemblyReference.cache
+/home/ersinware/repositories/monopoly/obj/Debug/net6.0/monopoly.GeneratedMSBuildEditorConfig.editorconfig
+/home/ersinware/repositories/monopoly/obj/Debug/net6.0/monopoly.AssemblyInfoInputs.cache
+/home/ersinware/repositories/monopoly/obj/Debug/net6.0/monopoly.AssemblyInfo.cs
+/home/ersinware/repositories/monopoly/obj/Debug/net6.0/monopoly.csproj.CoreCompileInputs.cache
+/home/ersinware/repositories/monopoly/obj/Debug/net6.0/monopoly.dll
+/home/ersinware/repositories/monopoly/obj/Debug/net6.0/ref/monopoly.dll
+/home/ersinware/repositories/monopoly/obj/Debug/net6.0/monopoly.pdb
+/home/ersinware/repositories/monopoly/obj/Debug/net6.0/monopoly.genruntimeconfig.cache
