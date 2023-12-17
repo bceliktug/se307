@@ -23,33 +23,35 @@ public static class CommunityCardActions
         Player.IncrementBalance(100);
     }
 
-    public static void PlaceOnTheBoard100(Player Player)
+    public static void PlaceOnTheBoard100(Player player)
+    {
+        player.DecrementBalance(100);
+        BoardDispatcher.IncrementBalance(100);
+        Console.WriteLine($"Player#{player.GetName} has placed 100Ꝟ on board");
+    }
+
+    public static void PlaceAccordingToOwnedHousesAndHotels(Player player)
     {
 
     }
 
-    public static void PlaceAccordingToOwnedHousesAndHotels(Player Player)
+    public static void TravelToTheNearestUtility(Player player)
     {
 
     }
 
-    public static void TravelToTheNearestUtility(Player Player)
+    public static void AdvanceToTheBeginningTile(Player player)
     {
 
     }
 
-    public static void AdvanceToTheBeginningTile(Player Player)
+    public static void TravelToJail(Player player)
     {
 
     }
 
-    public static void TravelToJail(Player Player)
+    public static void Collect100FromEachPlayer(Player player)
     {
-
-    }
-
-    public static void Collect100FromEachPlayer(Player Player)
-    {
-
+        
     }
 }
