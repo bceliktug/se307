@@ -33,6 +33,11 @@ public class Player
     {
         return Balance;
     }
+    
+    public void IncreaseBalance(int Amount)
+    {
+        Balance += Amount;
+    }
 
     public void SetBalance(int Balance)
     {

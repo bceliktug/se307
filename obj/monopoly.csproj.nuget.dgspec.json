@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/ersinware/repositories/monopoly/monopoly.csproj": {}
+    "/Users/erencivril/Documents/GitHub/se307/monopoly.csproj": {}
   },
   "projects": {
-    "/home/ersinware/repositories/monopoly/monopoly.csproj": {
+    "/Users/erencivril/Documents/GitHub/se307/monopoly.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ersinware/repositories/monopoly/monopoly.csproj",
+        "projectUniqueName": "/Users/erencivril/Documents/GitHub/se307/monopoly.csproj",
         "projectName": "monopoly",
-        "projectPath": "/home/ersinware/repositories/monopoly/monopoly.csproj",
-        "packagesPath": "/home/ersinware/.nuget/packages/",
-        "outputPath": "/home/ersinware/repositories/monopoly/obj/",
+        "projectPath": "/Users/erencivril/Documents/GitHub/se307/monopoly.csproj",
+        "packagesPath": "/Users/erencivril/.nuget/packages/",
+        "outputPath": "/Users/erencivril/Documents/GitHub/se307/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/ersinware/.nuget/NuGet/NuGet.Config"
+          "/Users/erencivril/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -43,16 +43,31 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.24, 6.0.24]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[6.0.24, 6.0.24]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.24, 6.0.24]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/6.0.125/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.403/RuntimeIdentifierGraph.json"
         }
       }
     }

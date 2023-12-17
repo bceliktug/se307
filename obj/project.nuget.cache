@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "b2kS36UL7tNxSKZ/IQiUDQxSkFMGNMqnp19sWzkYST5ZamBJl75D2PMKnr8OLkrZLX+mNTVnWO59C6cfHLLbCw==",
+  "dgSpecHash": "TgSG/Isvw8mkGhAvNqq1wv8duRONuUIfkRjUB35+AIMiwW/vLPimD9DfHIHKCBa6ya78kOblbXoWsoIbbt3YaQ==",
   "success": true,
-  "projectFilePath": "/home/ersinware/repositories/monopoly/monopoly.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/Users/erencivril/Documents/GitHub/se307/monopoly.csproj",
+  "expectedPackageFiles": [
+    "/Users/erencivril/.nuget/packages/microsoft.netcore.app.ref/6.0.24/microsoft.netcore.app.ref.6.0.24.nupkg.sha512",
+    "/Users/erencivril/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.24/microsoft.aspnetcore.app.ref.6.0.24.nupkg.sha512",
+    "/Users/erencivril/.nuget/packages/microsoft.netcore.app.host.osx-arm64/6.0.24/microsoft.netcore.app.host.osx-arm64.6.0.24.nupkg.sha512"
+  ],
   "logs": []
 }
