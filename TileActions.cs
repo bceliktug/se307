@@ -4,39 +4,44 @@ public static class TileActions
 {
     public static void OnBeginningTile(Player Player)
     {
-        Player.SetBalance(200);
+        Console.WriteLine($"Because Player {Player.GetName()} has landed into Beginning Tile, he collected 200Ꝟ.");
+        Player.IncrementBalance(200);
     }
 
     public static void OnIncomeTaxTile(Player Player)
     {
-        BoardDispatcher.IncrementBalance(200);
-        Console.WriteLine($"Because Player {Player.GetName} has landed into the Income Tax Tile, he placed 200Ꝟ on the board.");
-        Player.DecrementBalance(200);
+        ActionsUtil.PayTax(Player, 200);
     }
 
     public static void OnLuxuryTaxTile(Player Player)
     {
-
+        ActionsUtil.PayTax(Player, 150);
     }
 
+    //
     public static void OnChanceTile(Player Player)
     {
 
     }
 
+    //
     public static void OnCommunityChestTile(Player Player)
     {
-
+        
     }
 
     public static void OnFreeParkingTile(Player Player)
     {
-
+        int PriceOnTheBoard = BoardDispatcher.GetBalance();
+        Console.WriteLine($"Because Player {Player.GetName()} has landed into Free Parking Tile, he collected price on the board ({PriceOnTheBoard}Ꝟ).");
+        
+        Player.IncrementBalance(PriceOnTheBoard);
+        BoardDispatcher.Clear();
     }
 
     public static void OnTrainStationTile(Player Player)
     {
-
+        
     }
 
     public static void OnElectricCompanyTile(Player Player)

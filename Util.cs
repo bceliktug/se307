@@ -7,12 +7,12 @@ public static class Util
     // the result of rolling a die, may be bigger than the player count?
     public static int RollDie(int UpperBound)
     {
-        return Random.Next(0, UpperBound + 1);
+        return Random.Next(1, UpperBound + 1);
     }
 
     public static int RollTwoDice()
     {
-        return Random.Next(0, 6 + 1) + Random.Next(0, 6 + 1); ;
+        return Random.Next(1, 6 + 1) + Random.Next(1, 6 + 1); ;
     }
 
     public static void ShuffleArray<T>(T[] array)

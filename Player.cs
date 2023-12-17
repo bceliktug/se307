@@ -25,7 +25,7 @@ public class Player
     public void SetTile(Tile Tile)
     {
         this.Tile = Tile;
-        Console.WriteLine($"Player#{Name} has landed to {Tile.GetName()}");
+        Console.WriteLine($"\nPlayer#{Name} has landed to {Tile.GetName()}");
         Tile.OnLand(this);
     }
 
@@ -41,16 +41,22 @@ public class Player
         GetOutIfHasNegativeBalance();
     }
 
+    public void IncrementBalance(int Amount)
+    {
+        Balance += Amount;
+        Console.WriteLine($"Balance of Player#{Name} has changed to ${Balance}.");
+    }
+
     public void DecrementBalance(int Amount)
     {
         Balance -= Amount;
-        // TODO: display information on to console
+        Console.WriteLine($"Balance of Player#{Name} has changed to ${Balance}.");
         GetOutIfHasNegativeBalance();
     }
 
     private void GetOutIfHasNegativeBalance()
     {
         if (Balance < 0)
-            TheGame.GetOut(this);
+            TheGame.OnPlayerLosed(this);
     }
 }

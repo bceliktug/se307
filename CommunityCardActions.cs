@@ -13,14 +13,14 @@ public static class CommunityCardActions
         Collect100FromEachPlayer
     };
 
-    public static void Collect200(Player player)
+    public static void Collect200(Player Player)
     {
-
+        Player.IncrementBalance(200);
     }
 
-    public static void Collect100(Player player)
+    public static void Collect100(Player Player)
     {
-
+        Player.IncrementBalance(100);
     }
 
     public static void PlaceOnTheBoard100(Player Player)

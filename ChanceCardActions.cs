@@ -15,12 +15,12 @@ public static class ChanceCardActions
 
     public static void Collect150(Player Player)
     {
-
+        Player.IncrementBalance(150);
     }
 
     public static void Collect50(Player Player)
     {
-
+        Player.IncrementBalance(50);
     }
 
     public static void PlaceOnTheBoard150(Player Player)

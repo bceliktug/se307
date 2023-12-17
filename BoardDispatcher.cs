@@ -12,17 +12,17 @@ public static class BoardDispatcher
     public static void SetBalance(int NewBalance)
     {
         Balance = NewBalance;
-        // TODO: display information on to console
+        Console.WriteLine($"New balance on the board is {Balance}");
     }
 
     public static void IncrementBalance(int Amount) {
         Balance += Amount;
-        // TODO: display information on to console
+        Console.WriteLine($"New balance on the board is {Balance}");
     }
 
     public static void Clear()
     {
         Balance = 0;
-        // TODO: display information on to console
+        Console.WriteLine("New balance on the board is 0");
     }
 }
