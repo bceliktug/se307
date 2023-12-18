@@ -61,7 +61,19 @@ public static class CommunityCardActions
 
     public static void TravelToTheNearestUtility(Player player)
     {
-
+        Tile electric_company = TileRepository.Tiles[12];
+        Tile water_works_company = TileRepository.Tiles[28];
+        
+        int electric_company_distance = player.CalculateDistance(electric_company);
+        int water_works_company_distance = player.CalculateDistance(water_works_company);
+        
+        if (electric_company_distance <= water_works_company_distance)
+            player.SetTile(electric_company);
+        else
+        {
+            player.SetTile(water_works_company);
+        }
+        
     }
 
     public static void AdvanceToTheBeginningTile(Player player)
