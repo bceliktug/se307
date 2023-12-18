@@ -3,7 +3,7 @@ namespace Monopoly;
 public static class TheGame
 {
     // List'e çevir
-    private static List<Player> Players = new();
+    private static List<Player> Players = new List<Player>();
 
     public static List<Player> GetPlayers()
     {
