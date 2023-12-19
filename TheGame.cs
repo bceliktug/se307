@@ -90,7 +90,9 @@ public static class TheGame
 
     private static void Proceed(Player Player)
     {
+        Console.ForegroundColor= ConsoleColor.Red;
         Console.WriteLine("\n------------ START TURN ------------");
+        Console.ResetColor();
 
         Console.WriteLine($"\nIt is turn of Player#{Player.GetName()}.");
 
@@ -99,13 +101,17 @@ public static class TheGame
 
         Player.SetTile(TileRepository.Tiles[(Player.GetTile()!.GetPosition() + result) % TileRepository.Tiles.Count]);
         PrintView();
-        Console.WriteLine("\n------------ END TURN ------------");
+
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("\n--------- END TURN ---------");
+        Console.ResetColor();
+
     }
 
     // TODO: test with properties
     private static void PrintView()
     {
-        Console.WriteLine("\n------------ START INFORMATION ------------");
+        Console.WriteLine("\n--------- START INFORMATION ---------");
 
         foreach (var Entry in TileRepository.Tiles)
         {
@@ -129,9 +135,11 @@ public static class TheGame
 
 
             foreach (Player Player in Players)
-                if (Player.GetTile() == Tile)
+                if (Player.GetTile() == Tile) {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write($" -> Player#{Player.GetName()}");
-
+                    Console.ResetColor();
+                }
         }
 
         Console.WriteLine("");
@@ -141,7 +149,7 @@ public static class TheGame
 
         Console.WriteLine($"\n\nThe price on the board: {BoardDispatcher.GetBalance()}");
 
-        Console.WriteLine("\n------------ END INFORMATION ------------");
+        Console.WriteLine("\n----- END INFORMATION ------");
     }
 
     private static bool GetTheChoice()
