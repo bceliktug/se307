@@ -4,8 +4,8 @@ public static class TileActions
 {
     public static void OnBeginningTile(Player Player, Tile Tile)
     {
-        Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he collected 10000Ꝟ.");
-        Player.IncrementBalance(10000);
+        Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he collected 200Ꝟ.");
+        Player.IncrementBalance(200);
     }
 
     public static void OnIncomeTaxTile(Player Player, Tile Tile)
