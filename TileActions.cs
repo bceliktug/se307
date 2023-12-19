@@ -101,32 +101,35 @@ public static class TileActions
 
     public static void OnPurpleRealEstateTile(Player Player, Tile Tile)
     {
+        ActionsUtil.OnRealEstateTile(Tile, Player, 160, 100, 900, new int[] { 12, 60, 180, 500, 700 });
 
     }
 
     public static void OnOrangeRealEstateTile(Player Player, Tile Tile)
     {
+        ActionsUtil.OnRealEstateTile(Tile, Player, 200, 100, 1000, new int[] { 16, 80, 220, 600, 800 });
 
     }
 
     public static void OnRedRealEstateTile(Player Player, Tile Tile)
     {
+        ActionsUtil.OnRealEstateTile(Tile, Player, 240, 150, 1100, new int[] { 20, 100, 300, 750, 925 });
 
     }
 
     public static void OnYellowRealEstateTile(Player Player, Tile Tile)
     {
-
+        ActionsUtil.OnRealEstateTile(Tile, Player, 280, 150, 1200, new int[] { 24, 120, 360, 850, 1200 });
     }
 
     public static void OnGreenRealEstateTile(Player Player, Tile Tile)
     {
-
+        ActionsUtil.OnRealEstateTile(Tile, Player, 320, 200, 1400, new int[] { 28, 150, 450, 1000, 1200 });
     }
 
     public static void OnBlueRealEstateTile(Player Player, Tile Tile)
     {
-
+        ActionsUtil.OnRealEstateTile(Tile, Player, 400, 200, 2000, new int[] { 50, 200, 600, 1400, 1700 });
     }
 
     public static void OnGoToJailTile(Player Player, Tile Tile)
