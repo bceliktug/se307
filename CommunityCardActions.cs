@@ -13,95 +13,45 @@ public static class CommunityCardActions
         Collect100FromEachPlayer
     };
 
-    public static void Collect200(Player player)
+    public static void Collect200(Player Player)
     {
-        player.IncrementBalance(200);
+        Player.IncrementBalance(200);
     }
 
-    public static void Collect100(Player player)
+    public static void Collect100(Player Player)
     {
-        player.IncrementBalance(100);
+        Player.IncrementBalance(100);
     }
 
-    public static void PlaceOnTheBoard100(Player player)
+    public static void PlaceOnTheBoard100(Player Player)
     {
-        player.DecrementBalance(100);
+        Player.DecrementBalance(100);
         BoardDispatcher.IncrementBalance(100);
-        Console.WriteLine($"Player#{player.GetName} has placed 100Ꝟ on board");
+        Console.WriteLine($"Player#{Player.GetName} has placed 100Ꝟ on board");
     }
 
-    public static void PlaceAccordingToOwnedHousesAndHotels(Player player)
-    { 
-        Property[] properties = PropertyDispatcher.GetPropertiesByPlayer(player.GetHashCode());
-        int houseCount = 0;
-        int hotelCount = 0;
-        int total = 0;
-        
-        foreach (Property property in properties)
-        {
-            if (property.GetName() == "House")
-            {
-                houseCount++;
-            }
-            else if (property.GetName() == "Hotel")
-            {
-                hotelCount++;
-            }
-        }
-
-        total = (40 * houseCount) + (115 * hotelCount);
-        
-        Console.WriteLine($"Player#{player.GetName} has to place total of {total}Ꝟ for each owned house and hotel");
-        
-        player.DecrementBalance(total);
-        BoardDispatcher.IncrementBalance(total);
-
-
-    }
-
-    public static void TravelToTheNearestUtility(Player player)
+    public static void PlaceAccordingToOwnedHousesAndHotels(Player Player)
     {
-        Tile electric_company = TileRepository.Tiles[12];
-        Tile water_works_company = TileRepository.Tiles[28];
-        
-        int electric_company_distance = player.CalculateDistance(electric_company);
-        int water_works_company_distance = player.CalculateDistance(water_works_company);
-        
-        if (electric_company_distance <= water_works_company_distance)
-            player.SetTile(electric_company);
-        else
-        {
-            player.SetTile(water_works_company);
-        }
-        
-    }
-
-    public static void AdvanceToTheBeginningTile(Player player)
-    {
-        Console.WriteLine($"Player#{player.GetName} is advancing to the beginning tile");
-        player.SetTile(TileRepository.Tiles[0]);
-    }
-
-    public static void TravelToJail(Player player)
-    {
-        Console.WriteLine($"Player#{player.GetName} has to travel to the jail tile");
-        player.SetTile(TileRepository.Tiles[10]);
 
     }
 
-    public static void Collect100FromEachPlayer(Player player)
+    public static void TravelToTheNearestUtility(Player Player)
     {
-        Console.WriteLine($"Player#{player.GetName} is collecting 100Ꝟ from every player.");
-        List<Player> playerList = TheGame.GetPlayers();
-        playerList.Remove(player);
 
-        int total = (playerList.Count * 100);
+    }
 
-        foreach (Player otherPlayer in playerList)
-        {
-            otherPlayer.DecrementBalance(100);
-        }
+    public static void AdvanceToTheBeginningTile(Player Player)
+    {
+
+    }
+
+    public static void TravelToJail(Player Player)
+    {
+
+    }
+
+    public static void Collect100FromEachPlayer(Player Player)
+    {
         
-        player.IncrementBalance(total);
     }
 }

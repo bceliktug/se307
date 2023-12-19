@@ -3,10 +3,10 @@ namespace Monopoly;
 public class Tile
 {
     private readonly string Name;
-    private readonly Action<Player> Action;
+    private readonly Action<Player, Tile> Action;
     private readonly int Position;
 
-    public Tile(string Name, Action<Player> Action, int Position)
+    public Tile(string Name, Action<Player, Tile> Action, int Position)
     {
         this.Name = Name;
         this.Action = Action;
@@ -24,6 +24,6 @@ public class Tile
 
     public void OnLand(Player Player)
     {
-        Action(Player);
+        Action(Player, this);
     }
 }

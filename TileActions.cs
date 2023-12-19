@@ -4,8 +4,8 @@ public static class TileActions
 {
     public static void OnBeginningTile(Player Player, Tile Tile)
     {
-        Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he collected 200Ꝟ.");
-        Player.IncrementBalance(200);
+        Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he collected 10000Ꝟ.");
+        Player.IncrementBalance(10000);
     }
 
     public static void OnIncomeTaxTile(Player Player, Tile Tile)
@@ -41,11 +41,9 @@ public static class TileActions
 
     public static void OnTrainStationTile(Player Player, Tile Tile)
     {
-        int TileHash = Tile.GetHashCode();
-
-        if (PropertyDispatcher.TileHasProperty(TileHash))
+        if (PropertyDispatcher.TileHasProperty(Tile))
         {
-            Player Owner = PropertyDispatcher.GetOwnerOfTile(TileHash);
+            Player Owner = PropertyDispatcher.GetOwnerOfTile(Tile);
 
             if (Owner == Player)
             {
@@ -71,10 +69,10 @@ public static class TileActions
                 if (Console.ReadLine() == "Y")
                 {
                     Console.WriteLine($"Player#{Player.GetName()} has bought the train station.");
-                    PropertyDispatcher.AddProperty(TileHash, Player.GetHashCode(), new Property(PropertyNames.PROPERTY_NAME_TRAIN_STATION, Player, 100));
+                    PropertyDispatcher.AddProperty(Tile, Player, new Property(PropertyNames.PROPERTY_NAME_TRAIN_STATION, Player, 100));
                     Player.DecrementBalance(100);
                 }
-                else Console.WriteLine($"Player#{Player.GetName()} declined to buy the train station");
+                else Console.WriteLine($"Player#{Player.GetName()} has declined to buy the train station");
             }
             else
                 Console.WriteLine(MessageConstants.MESSAGE_HAS_NO_ENOUGH_PRICE_TO_BUY_TRAIN_STATION);
@@ -93,82 +91,12 @@ public static class TileActions
 
     public static void OnBrownRealEstateTile(Player Player, Tile Tile)
     {
-        int LandCost = 60,
-            TileHash = Tile.GetHashCode(),
-            HotelCost = 450;
-
-        int[] RentCosts = { 4, 20, 60, 180, 320 };
-
-        if (PropertyDispatcher.TileHasProperty(TileHash))
-        {
-            Player Owner = PropertyDispatcher.GetOwnerOfTile(Tile.GetHashCode());
-
-            if (Owner == Player)
-            {
-                // ask to build house(how many (has -4), or hotel), if has enough price
-                int NumberOwnerHasProperties = PropertyDispatcher.GetNumberOfPropertiesOnTile(TileHash);
-
-                // can upgrade to hotel if have enough balance
-                if (NumberOwnerHasProperties == 5)
-                    if (Player.GetBalance() >= HotelCost)
-                    {
-                        Console.WriteLine("Do you want to upgrade to hotel? Enter Y to upgrade.");
-
-                        if (Console.ReadLine() == "Y")
-                        {
-                            Console.WriteLine($"Player#{Player.GetName()} has upgraded to hotel.");
-                            PropertyDispatcher.ClearHousesOnTile(TileHash);
-                            PropertyDispatcher.AddProperty(TileHash, Player.GetHashCode(), new Property(PropertyNames.PROPERTY_NAME_HOTEL, Player, HotelCost));
-                            Player.DecrementBalance(HotelCost);
-                        }
-                        else Console.WriteLine($"Player#{Player.GetName()} declined to upgrade to hotel.");
-                    }
-                    else Console.WriteLine(MessageConstants.MESSAGE_HAS_NO_ENOUGH_PRICE_TO_UPGRADE_TO_HOTEL);
-                else
-                {
-
-                }
-            }
-            else
-            {
-                int NumberOwnerHasProperties = PropertyDispatcher.GetNumberOfPropertiesOnTile(TileHash);
-
-                // if have 2 properties, he may have 1 house or 1 hotel
-                if (NumberOwnerHasProperties == 2)
-                {
-                    if (PropertyDispatcher.GetNameOfPropertyAt(TileHash, 1) == PropertyNames.PROPERTY_NAME_HOTEL)
-                    {
-                        Console.WriteLine($"Player#{Player.GetName()} has made payment of {HotelCost} to Player#{Owner.GetName()} for rent because the owner has the land and an hotel.");
-                        Player.DecrementBalance(HotelCost);
-                    }
-                    else
-                    {
-                        int PriceForRent = RentCosts[NumberOwnerHasProperties - 1];
-                        Console.WriteLine($"Player#{Player.GetName()} has made payment of {PriceForRent} to Player#{Owner.GetName()} for rent because the owner has the land" + (NumberOwnerHasProperties > 1 ? $" and {NumberOwnerHasProperties - 1} houses." : "."));
-                        Player.DecrementBalance(PriceForRent);
-                    }
-                }
-            }
-        }
-        else
-        {
-            if (Player.GetBalance() >= LandCost)
-            {
-                Console.WriteLine("Do you want to buy the land? Enter Y to buy.");
-                if (Console.ReadLine() == "Y")
-                {
-                    PropertyDispatcher.AddProperty(TileHash, Player.GetHashCode(), new Property(PropertyNames.PROPERTY_NAME_LAND, Player, LandCost));
-                    Player.DecrementBalance(LandCost);
-                }
-            }
-            else Console.WriteLine(MessageConstants.MESSAGE_HAS_NO_ENOUGH_PRICE);
-
-        }
+        ActionsUtil.OnRealEstateTile(Tile, Player, 60, 50, 450, new int[] { 4, 20, 60, 180, 320 });
     }
 
     public static void OnLigthBlueRealEstateTile(Player Player, Tile Tile)
     {
-
+        ActionsUtil.OnRealEstateTile(Tile, Player, 120, 50, 600, new int[] { 8, 40, 100, 300, 450 });
     }
 
     public static void OnPurpleRealEstateTile(Player Player, Tile Tile)

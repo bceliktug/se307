@@ -1,9 +1,11 @@
 namespace Monopoly;
 
+// TODO: VIEW komutu ile görüntülen yerde tile position ve tile adını da yazdır
+
 public static class TheGame
 {
-    // List'e çevir
-    private static List<Player> Players = new List<Player>();
+    private static List<Player> Players = new();
+    private static bool GameWon = false;
 
     public static List<Player> GetPlayers()
     {
@@ -18,6 +20,7 @@ public static class TheGame
         Console.WriteLine($"The Starting player is: Player#{Players[Util.RollDie(Players.Count - 1)].GetName()}");
 
         InitializeCards();
+        TileRepository.InitiliazePropertyCountDictionary();
 
         StartLoop();
     }
@@ -54,7 +57,7 @@ public static class TheGame
         Console.WriteLine("\nThe game has started.");
 
         int turn = 0;
-        while (true)
+        while (true && !GameWon)
         {
             Player Player = Players[turn];
 
@@ -87,13 +90,16 @@ public static class TheGame
 
     private static void Proceed(Player Player)
     {
-        PrintView();
+        Console.WriteLine("\n------------ START TURN ------------");
+
         Console.WriteLine($"\nIt is turn of Player#{Player.GetName()}.");
 
         int result = Util.RollTwoDice();
         Console.WriteLine($"Player#{Player.GetName()} rolled {result}");
 
         Player.SetTile(TileRepository.Tiles[(Player.GetTile()!.GetPosition() + result) % TileRepository.Tiles.Count]);
+        PrintView();
+        Console.WriteLine("\n------------ END TURN ------------");
     }
 
     // TODO: test with properties
@@ -106,7 +112,7 @@ public static class TheGame
             Tile Tile = Entry.Value;
             Console.Write("\n" + Tile.GetName());
 
-            Property[] Properties = PropertyDispatcher.GetPropertiesByTile(Tile.GetHashCode());
+            Property[] Properties = PropertyDispatcher.GetPropertiesByTile(Tile);
             int PropertiesLength = Properties.Length;
 
             if (PropertiesLength > 0)
@@ -133,7 +139,7 @@ public static class TheGame
         foreach (Player Player in Players)
             Console.Write($"\nBalance of Player#{Player.GetName()} is {Player.GetBalance()}");
 
-        Console.WriteLine($"\n\nThe price on the board: {BoardDispatcher.GetBalance()}" );
+        Console.WriteLine($"\n\nThe price on the board: {BoardDispatcher.GetBalance()}");
 
         Console.WriteLine("\n------------ END INFORMATION ------------");
     }
@@ -163,7 +169,7 @@ public static class TheGame
             Console.WriteLine($"Player#{Player.GetName()}:");
             Console.WriteLine($"    Balance: {Player.GetBalance()}");
 
-            Property[] Properties = PropertyDispatcher.GetPropertiesByPlayer(Player.GetHashCode());
+            Property[] Properties = PropertyDispatcher.GetPropertiesByPlayer(Player);
             int PropertiesLength = Properties.Length;
 
             if (PropertiesLength > 0)
@@ -179,6 +185,12 @@ public static class TheGame
     {
         Console.WriteLine($"Player#{Player.GetName()} LOSED THE GAME.");
         Players.Remove(Player);
-        PropertyDispatcher.OnPlayerLosed(Player.GetHashCode());
+        PropertyDispatcher.OnPlayerLosed(Player);
+
+        if (Players.Count == 1)
+        {
+            Console.WriteLine($"{Players[0]} HAS WON THE GAME!");
+            GameWon = true;
+        }
     }
 }
