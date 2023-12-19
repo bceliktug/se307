@@ -25,9 +25,7 @@ public static class CommunityCardActions
 
     public static void PlaceOnTheBoard100(Player Player)
     {
-        Player.DecrementBalance(100);
-        BoardDispatcher.IncrementBalance(100);
-        Console.WriteLine($"Player#{Player.GetName} has placed 100Ꝟ on board");
+        ActionsUtil.PlaceOnTheBoard(Player, 100);
     }
 
     public static void PlaceAccordingToOwnedHousesAndHotels(Player Player)

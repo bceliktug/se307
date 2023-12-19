@@ -2,7 +2,7 @@ namespace Monopoly;
 
 public static class TileRepository
 {
-    public static readonly Dictionary<int, Tile> Tiles = new() {
+    private static readonly Dictionary<int, Tile> Tiles = new() {
         { 0, new Tile(TileNames.TILE_NAME_BEGINNING_TILE, TileActions.OnBeginningTile, 0) },
         { 1, new Tile(TileNames.TILE_NAME_BROWN_REAL_ESTATE, TileActions.OnBrownRealEstateTile, 1) },
         { 2, new Tile(TileNames.TILE_NAME_COMMUNITY_CHEST, TileActions.OnCommunityChestTile, 2) },
@@ -13,7 +13,7 @@ public static class TileRepository
         { 7, new Tile(TileNames.TILE_NAME_CHANCE, TileActions.OnChanceTile, 7) },
         { 8, new Tile(TileNames.TILE_NAME_LIGHT_BLUE_REAL_ESTATE, TileActions.OnLigthBlueRealEstateTile, 8) },
         { 9, new Tile(TileNames.TILE_NAME_LIGHT_BLUE_REAL_ESTATE, TileActions.OnLigthBlueRealEstateTile, 9) },
-        { 10, new Tile(TileNames.TILE_NAME_JAIL, TileActions.OnJailTile, 10) },
+        { TileConstants.TILE_POSITION_JAIL, new Tile(TileNames.TILE_NAME_JAIL, TileActions.OnJailTile, TileConstants.TILE_POSITION_JAIL) },
         { 11, new Tile(TileNames.TILE_NAME_PURPLE_REAL_ESTATE, TileActions.OnPurpleRealEstateTile, 11) },
         { 12, new Tile(TileNames.TILE_NAME_ELECTRIC_COMPANY, TileActions.OnElectricCompanyTile, 12) },
         { 13, new Tile(TileNames.TILE_NAME_PURPLE_REAL_ESTATE, TileActions.OnPurpleRealEstateTile, 13) },
@@ -46,6 +46,10 @@ public static class TileRepository
     };
 
     private static readonly Dictionary<string, int> PropertyCountDictionary = new();
+
+    public static Dictionary<int, Tile> GetTiles() {
+        return Tiles;
+    }
 
     public static void InitiliazePropertyCountDictionary()
     {

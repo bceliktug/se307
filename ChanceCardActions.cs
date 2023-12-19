@@ -10,7 +10,7 @@ public static class ChanceCardActions
         TravelToTheNearestTrainStation,
         GoBackThreeTiles,
         GetOutOfJail,
-        PayEachPlayer50 
+        PayEachPlayer50
     };
 
     public static void Collect150(Player Player)
@@ -25,7 +25,7 @@ public static class ChanceCardActions
 
     public static void PlaceOnTheBoard150(Player Player)
     {
-
+        ActionsUtil.PlaceOnTheBoard(Player, 150);
     }
 
     public static void PlaceAccordingToOwnedHousesAndHotels(Player Player)

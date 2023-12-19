@@ -62,7 +62,7 @@ public static class TheGame
             Player Player = Players[turn];
 
             if (Player.GetTile() == null)
-                Player.SetTile(TileRepository.Tiles[0]);
+                Player.SetTile(TileRepository.GetTiles()[0]);
 
             if (PunishmentDispatcher.HasPunishment(Player))
             {
@@ -70,6 +70,16 @@ public static class TheGame
                 turn = (turn + 1) % Players.Count;
 
                 continue;
+            }
+            else if (CardDispatcher.HasChanceCard(Player))
+            {
+                Console.WriteLine($"\nYou have {CardDispatcher.GetChanceCardCountOf(Player)} chance cards. Do you want to use one? Enter Y to use.");
+                if (Console.ReadLine() == "Y")
+                    CardDispatcher.UseChanceOf(Player);
+                else
+                    Console.WriteLine($"Player#{Player.GetName()} declined to use his chance card, proceeding");
+                    
+                Proceed(Player);
             }
             else
                 Proceed(Player);
@@ -90,7 +100,7 @@ public static class TheGame
 
     private static void Proceed(Player Player)
     {
-        Console.ForegroundColor= ConsoleColor.Red;
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("\n------------ START TURN ------------");
         Console.ResetColor();
 
@@ -99,7 +109,7 @@ public static class TheGame
         int result = Util.RollTwoDice();
         Console.WriteLine($"Player#{Player.GetName()} rolled {result}");
 
-        Player.SetTile(TileRepository.Tiles[(Player.GetTile()!.GetPosition() + result) % TileRepository.Tiles.Count]);
+        Player.SetTile(TileRepository.GetTiles()[(Player.GetTile()!.GetPosition() + result) % TileRepository.GetTiles().Count]);
         PrintView();
 
         Console.ForegroundColor = ConsoleColor.Red;
@@ -113,7 +123,7 @@ public static class TheGame
     {
         Console.WriteLine("\n--------- START INFORMATION ---------");
 
-        foreach (var Entry in TileRepository.Tiles)
+        foreach (var Entry in TileRepository.GetTiles())
         {
             Tile Tile = Entry.Value;
             Console.Write("\n" + Tile.GetName());
@@ -135,7 +145,8 @@ public static class TheGame
 
 
             foreach (Player Player in Players)
-                if (Player.GetTile() == Tile) {
+                if (Player.GetTile() == Tile)
+                {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write($" -> Player#{Player.GetName()}");
                     Console.ResetColor();

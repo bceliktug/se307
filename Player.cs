@@ -25,7 +25,7 @@ public class Player
     public void SetTile(Tile Tile)
     {
         this.Tile = Tile;
-        Console.WriteLine($"\nPlayer#{Name} has landed to {Tile.GetName()}");
+        Console.WriteLine($"\nPlayer#{Name} has landed to {Tile.GetName()}.");
         Tile.OnLand(this);
     }
 

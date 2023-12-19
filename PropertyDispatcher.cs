@@ -50,7 +50,7 @@ namespace Monopoly
 
             foreach (var Entry in PropertiesOfTiles)
                 if (Entry.Value[0].GetPlayer() == Player)
-                    PropertiesOfTiles[Entry.Key] = new List<Property>();
+                    PropertiesOfTiles.Remove(Entry.Key);
 
             PropertiesOfPlayers.Remove(Player);
         }
@@ -79,6 +79,10 @@ namespace Monopoly
         public static Player GetOwnerOfTile(Tile Tile)
         {
             return PropertiesOfTiles[Tile][0].GetPlayer();
+        }
+
+        public static Property GetPropertyAt(Tile Tile, int index) {
+            return PropertiesOfTiles[Tile][index];
         }
 
         public static string? GetNameOfPropertyAt(Tile Tile, int index)

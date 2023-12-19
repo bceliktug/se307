@@ -9,6 +9,12 @@ public static class ActionsUtil
         BoardDispatcher.IncrementBalance(Amount);
     }
 
+    public static void PlaceOnTheBoard(Player Player, int Amount) {
+        Player.DecrementBalance(Amount);
+        BoardDispatcher.IncrementBalance(Amount);
+        Console.WriteLine($"Player#{Player.GetName()} has placed {Amount}Ꝟ on board");
+    }
+
     public static void OnRealEstateTile(Tile Tile, Player Player, int LandCost, int BuildingHouseCost, int HotelRentCost, int[] RentCosts)
     {
         if (PropertyDispatcher.TileHasProperty(Tile))
@@ -154,5 +160,63 @@ public static class ActionsUtil
             }
             else Console.WriteLine(MessageConstants.MESSAGE_HAS_NO_ENOUGH_PRICE);
         }
+    }
+
+    public static void OnUtilityTile(Player Player, Tile Tile)
+    {
+        if (PropertyDispatcher.TileHasProperty(Tile))
+        {
+            Property Property = PropertyDispatcher.GetPropertyAt(Tile, 0);
+            Player Owner = Property.GetPlayer();
+            if (Owner == Player)
+            {
+                Console.WriteLine($"Player#{Owner.GetName()} has {Tile.GetName()}. Nothing to do.");
+                return;
+            }
+
+            // if it is required to add more utilities under the same condition, we would define an array which contains all the facility names
+            // and then, iterate this array to check the owner has the all
+            string ToLook = Property.GetName() == PropertyNames.PROPERTY_NAME_ELECTRIC_COMPANY ? PropertyNames.PROPERTY_NAME_ELECTRIC_COMPANY : PropertyNames.PROPERTY_NAME_WATER_WORKS;
+            int Coefficient = 5;
+
+            foreach (Property _Property in PropertyDispatcher.GetPropertiesByPlayer(Player))
+                if (_Property.GetName() == ToLook)
+                {
+                    Coefficient = 10;
+                    break;
+                }
+
+            int PriceForRent = Util.RollTwoDice() * Coefficient;
+            Console.WriteLine($"Player#{Player.GetName()} has made payment of {PriceForRent} to Player#{Owner.GetName()} for rent because the owner has the utility.");
+            Player.DecrementBalance(PriceForRent);
+            Owner.IncrementBalance(PriceForRent);
+
+            return;
+        }
+
+        int Cost = 150;
+        if (Player.GetBalance() < Cost)
+        {
+            Console.WriteLine("You do not have enough price to buy the facility.");
+
+            return;
+        }
+
+        Console.WriteLine($"Do you want to buy {Tile.GetName()} for {Cost}Ꝟ? Enter Y to buy.");
+        if (Console.ReadLine() == "Y")
+        {
+            PropertyDispatcher.AddProperty(
+                Tile,
+                Player,
+                new Property(
+                    Tile.GetName() == TileNames.TILE_NAME_ELECTRIC_COMPANY ? PropertyNames.PROPERTY_NAME_ELECTRIC_COMPANY : PropertyNames.PROPERTY_NAME_WATER_WORKS,
+                    Player,
+                    Cost
+                )
+            );
+            Console.WriteLine($"Player#{Player.GetName()} has bought the facility.");
+            Player.DecrementBalance(Cost);
+        }
+        else Console.WriteLine($"Player#{Player.GetName()} has declined to buy the land.");
     }
 }

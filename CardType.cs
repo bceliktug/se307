@@ -2,6 +2,6 @@ namespace Monopoly;
 
 public enum CardType
 {
-    CHEST,
-    CARD
+    COMMUNITY_CHEST_CARD,
+    CHANCE_CARD
 }

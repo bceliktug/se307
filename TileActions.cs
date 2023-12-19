@@ -18,16 +18,24 @@ public static class TileActions
         ActionsUtil.PayTax(Player, Tile.GetName(), 150);
     }
 
-    //
     public static void OnChanceTile(Player Player, Tile Tile)
     {
+        Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he gained a chance card.");
+        CardDispatcher.OnPlayerGetChance(Player, CardType.CHANCE_CARD);
 
+        Console.WriteLine($"Do you want to use your chance card immediately? Enter Y to use.");
+        if(Console.ReadLine() == "Y")
+            CardDispatcher.UseChance(Player, CardType.CHANCE_CARD);
     }
 
-    //
     public static void OnCommunityChestTile(Player Player, Tile Tile)
     {
+        Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he gained a community chance card.");
+        CardDispatcher.OnPlayerGetChance(Player, CardType.COMMUNITY_CHEST_CARD);
 
+        Console.WriteLine($"Do you want to use your community chance card immediately? Enter Y to use.");
+        if (Console.ReadLine() == "Y")
+            CardDispatcher.UseChance(Player, CardType.COMMUNITY_CHEST_CARD);
     }
 
     public static void OnFreeParkingTile(Player Player, Tile Tile)
@@ -81,12 +89,12 @@ public static class TileActions
 
     public static void OnElectricCompanyTile(Player Player, Tile Tile)
     {
-
+        ActionsUtil.OnUtilityTile(Player, Tile);
     }
 
     public static void OnWaterWorksTile(Player Player, Tile Tile)
     {
-
+        ActionsUtil.OnUtilityTile(Player, Tile);
     }
 
     public static void OnBrownRealEstateTile(Player Player, Tile Tile)
@@ -134,11 +142,14 @@ public static class TileActions
 
     public static void OnGoToJailTile(Player Player, Tile Tile)
     {
+        Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he is going to the jail.");
+        Player.SetTile(TileRepository.GetTiles()[TileConstants.TILE_POSITION_JAIL]);
 
     }
 
     public static void OnJailTile(Player Player, Tile Tile)
     {
-
+        Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he got punishment for two turns.");
+        PunishmentDispatcher.Punish(Player);
     }
 }
