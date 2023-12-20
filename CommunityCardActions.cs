@@ -35,7 +35,13 @@ public static class CommunityCardActions
 
     public static void TravelToTheNearestUtility(Player Player)
     {
-
+        Console.WriteLine($"Player#{Player.GetName()} is to land to the nearest utility.");
+        ActionsUtil.GoToNearestTileAndCollectIfPassedThroughTheBeginningTile(
+            Player, 
+            Player.GetTile()!, 
+            new string[] { TileNames.TILE_NAME_ELECTRIC_COMPANY, TileNames.TILE_NAME_WATER_WORKS }, 
+            200
+        );
     }
 
     public static void AdvanceToTheBeginningTile(Player Player)

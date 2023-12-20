@@ -38,26 +38,13 @@ public static class ChanceCardActions
     // not completed
     public static void TravelToTheNearestTrainStation(Player Player)
     {
-        // Console.WriteLine($"Player#{Player.GetName()} is to land to the nearest train station.");
-
-        // Dictionary<int, Tile> Tiles = TileRepository.GetTiles();
-        // IEnumerable<Tile> NextTiles = Tiles.Where(Entry => Entry.Key > Player.GetTile()!.GetPosition()).Select(Entry => Entry.Value);
-        // foreach (Tile Tile in NextTiles)
-        //     if (Tile.GetName() == TileNames.TILE_NAME_TRAIN_STATION)
-        //     {
-        //         Player.SetTile(Tile);
-
-        //         return;
-        //     }
-
-        // IEnumerable<Tile> PreviousTiles = Tiles.Where(Entry => Entry.Key < Player.GetTile()!.GetPosition()).Select(Entry => Entry.Value);
-        // foreach (Tile Tile in PreviousTiles)
-        //     if (Tile.GetName() == TileNames.TILE_NAME_TRAIN_STATION)
-        //     {
-        //         Player.SetTile(Tile);
-
-        //         return;
-        //     }
+        Console.WriteLine($"Player#{Player.GetName()} is to land to the nearest train station.");
+        ActionsUtil.GoToNearestTileAndCollectIfPassedThroughTheBeginningTile(
+            Player, 
+            Player.GetTile()!, 
+            new string[] { TileNames.TILE_NAME_TRAIN_STATION }, 
+            200
+        );
     }
 
     public static void GoBackThreeTiles(Player Player)
