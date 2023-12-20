@@ -44,14 +44,18 @@ namespace Monopoly
         
         public static void OnPlayerLosed(Player Player)
         {
-            foreach (Property? Property in PropertiesOfPlayers[Player])
-                BoardDispatcher.IncrementBalance(Property.GetCost());
+            if (PropertiesOfPlayers.ContainsKey(Player))
+            {
+                foreach (Property? Property in PropertiesOfPlayers[Player])
+                    BoardDispatcher.IncrementBalance(Property.GetCost());
 
-            foreach (var Entry in PropertiesOfTiles)
-                if (Entry.Value[0].GetPlayer() == Player)
-                    PropertiesOfTiles.Remove(Entry.Key);
+                foreach (var Entry in PropertiesOfTiles)
+                    if (Entry.Value[0].GetPlayer() == Player)
+                        PropertiesOfTiles.Remove(Entry.Key);
 
-            PropertiesOfPlayers.Remove(Player);
+                PropertiesOfPlayers.Remove(Player); 
+            }
+          
         }
 
         public static bool TileHasProperty(Tile Tile)

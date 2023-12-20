@@ -3,12 +3,17 @@ namespace Monopoly;
 public class TileActions
 {
     private readonly CardDispatcher CardDispatcher;
-    private readonly TileDispatcher TileDispatcher;
+    private TileDispatcher TileDispatcher;
 
     public TileActions(CardDispatcher CardDispatcher, TileDispatcher TileDispatcher)
     {
         this.CardDispatcher = CardDispatcher;
         this.TileDispatcher = TileDispatcher;
+    }
+
+    public void setTileDispatcher(TileDispatcher tileDispatcher)
+    {
+        this.TileDispatcher = tileDispatcher;
     }
 
     public static void OnBeginningTile(Player Player, Tile Tile)

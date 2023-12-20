@@ -18,7 +18,7 @@ public class TileDispatcher
             { 7, new Tile(TileNames.TILE_NAME_CHANCE, TileActions.OnChanceTile, 7) },
             { 8, new Tile(TileNames.TILE_NAME_LIGHT_BLUE_REAL_ESTATE, TileActions.OnLigthBlueRealEstateTile, 8) },
             { 9, new Tile(TileNames.TILE_NAME_LIGHT_BLUE_REAL_ESTATE, TileActions.OnLigthBlueRealEstateTile, 9) },
-            { 10, new Tile(TileNames.TILE_NAME_JAIL, TileActions.OnJailTile, 10) },
+            { 10, new Tile(TileNames.TILE_NAME_JAIL, TileActions.OnJailTile, TileConstants.TILE_POSITION_JAIL) },
             { 11, new Tile(TileNames.TILE_NAME_PURPLE_REAL_ESTATE, TileActions.OnPurpleRealEstateTile, 11) },
             { 12, new Tile(TileNames.TILE_NAME_ELECTRIC_COMPANY, TileActions.OnElectricCompanyTile, 12) },
             { 13, new Tile(TileNames.TILE_NAME_PURPLE_REAL_ESTATE, TileActions.OnPurpleRealEstateTile, 13) },
