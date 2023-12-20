@@ -9,10 +9,25 @@ public static class ActionsUtil
         BoardDispatcher.IncrementBalance(Amount);
     }
 
-    public static void PlaceOnTheBoard(Player Player, int Amount) {
+    public static void PlaceOnTheBoard(Player Player, int Amount)
+    {
+        Console.WriteLine($"Player#{Player.GetName()} is to place on the board {Amount}Ꝟ.");
         Player.DecrementBalance(Amount);
         BoardDispatcher.IncrementBalance(Amount);
         Console.WriteLine($"Player#{Player.GetName()} has placed {Amount}Ꝟ on board");
+    }
+
+    public static void PlaceAccordingToOwnedHousesAndHotels(Player Player, int AmountForHouse, int AmountForHotel)
+    {
+        foreach (Property Property in PropertyDispatcher.GetPropertiesByPlayer(Player))
+        {
+            string PropertyName = Property.GetName();
+            if (PropertyName == PropertyNames.PROPERTY_NAME_HOUSE)
+                PlaceOnTheBoard(Player, AmountForHouse);
+            else if (PropertyName == PropertyNames.PROPERTY_NAME_HOTEL)
+                PlaceOnTheBoard(Player, AmountForHotel);
+        }
+
     }
 
     public static void OnRealEstateTile(Tile Tile, Player Player, int LandCost, int BuildingHouseCost, int HotelRentCost, int[] RentCosts)

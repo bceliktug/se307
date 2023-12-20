@@ -78,7 +78,7 @@ public static class TheGame
                     CardDispatcher.UseChanceOf(Player);
                 else
                     Console.WriteLine($"Player#{Player.GetName()} declined to use his chance card, proceeding");
-                    
+
                 Proceed(Player);
             }
             else
