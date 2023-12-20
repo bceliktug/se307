@@ -1,7 +1,5 @@
 namespace Monopoly;
 
-// TODO: VIEW komutu ile görüntülen yerde tile position ve tile adını da yazdır
-
 public static class TheGame
 {
     private static List<Player> Players = new();
@@ -71,16 +69,6 @@ public static class TheGame
 
                 continue;
             }
-            else if (CardDispatcher.HasChanceCard(Player))
-            {
-                Console.WriteLine($"\nYou have {CardDispatcher.GetChanceCardCountOf(Player)} chance cards. Do you want to use one? Enter Y to use.");
-                if (Console.ReadLine() == "Y")
-                    CardDispatcher.UseChanceOf(Player);
-                else
-                    Console.WriteLine($"Player#{Player.GetName()} declined to use his chance card, proceeding");
-
-                Proceed(Player);
-            }
             else
                 Proceed(Player);
 
@@ -106,6 +94,18 @@ public static class TheGame
 
         Console.WriteLine($"\nIt is turn of Player#{Player.GetName()}.");
 
+        if (CardDispatcher.HasChanceCard(Player))
+        {
+            Console.WriteLine($"\nYou have {CardDispatcher.GetChanceCardCountOf(Player)} chance cards. Do you want to use one? Enter Y to use.");
+            if (Console.ReadLine() == "Y")
+                CardDispatcher.UseChanceOf(Player);
+            else
+                Console.WriteLine($"Player#{Player.GetName()} declined to use his chance card, proceeding");
+        }
+
+        if(GameWon)
+            return;
+
         int result = Util.RollTwoDice();
         Console.WriteLine($"Player#{Player.GetName()} rolled {result}");
 
@@ -115,10 +115,8 @@ public static class TheGame
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("\n--------- END TURN ---------");
         Console.ResetColor();
-
     }
 
-    // TODO: test with properties
     private static void PrintView()
     {
         Console.WriteLine("\n--------- START INFORMATION ---------");
@@ -137,7 +135,7 @@ public static class TheGame
             for (int i = 0; i < Properties.Length; i++)
             {
                 Property Property = Properties[i];
-                Console.Write(" " + Property.GetName() + $" owned by Player#{Property.GetPlayer().GetName()}");
+                Console.Write(" " + Property.GetName() + $" owned by Player#{Property.GetPlayer().GetName()}" + (i != PropertiesLength - 1 ? ", " : ""));
             }
 
             if (PropertiesLength > 0)
@@ -178,7 +176,6 @@ public static class TheGame
         return true;
     }
 
-    // TODO: test with properties
     private static void PrintProperties()
     {
         Console.WriteLine("");
@@ -192,23 +189,22 @@ public static class TheGame
             int PropertiesLength = Properties.Length;
 
             if (PropertiesLength > 0)
-                Console.Write("    Properties:");
+                Console.Write("    Properties: ");
 
             for (int i = 0; i < PropertiesLength; i++)
                 Console.Write($"{Properties[i].GetName()}" + (i != PropertiesLength - 1 ? ", " : "\n"));
         }
     }
 
-    // TODO: test
     public static void OnPlayerLosed(Player Player)
     {
         Console.WriteLine($"Player#{Player.GetName()} LOSED THE GAME.");
-        Players.Remove(Player);
         PropertyDispatcher.OnPlayerLosed(Player);
+        Players.Remove(Player);
 
         if (Players.Count == 1)
         {
-            Console.WriteLine($"{Players[0]} HAS WON THE GAME!");
+            Console.WriteLine($"Player#{Players[0].GetName()} HAS WON THE GAME!");
             GameWon = true;
         }
     }

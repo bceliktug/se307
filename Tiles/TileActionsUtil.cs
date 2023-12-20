@@ -19,6 +19,8 @@ public static class ActionsUtil
 
     public static void PlaceAccordingToOwnedHousesAndHotels(Player Player, int AmountForHouse, int AmountForHotel)
     {
+        Console.WriteLine($"Player#{Player.GetName()} is to place on the board according to their properties.");
+
         foreach (Property Property in PropertyDispatcher.GetPropertiesByPlayer(Player))
         {
             string PropertyName = Property.GetName();

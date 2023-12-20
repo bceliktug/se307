@@ -41,8 +41,7 @@ namespace Monopoly
                 PropertiesOfPlayers.Add(Player, Properties);
             }
         }
-
-        // TODO: test
+        
         public static void OnPlayerLosed(Player Player)
         {
             foreach (Property? Property in PropertiesOfPlayers[Player])

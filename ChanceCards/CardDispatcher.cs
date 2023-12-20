@@ -73,8 +73,6 @@ public static class CardDispatcher
         List[0](Player);
         List.RemoveAt(0);
 
-        if (List.Count == 0)
-            CardsOfPlayers.Remove(Player);
     }
 
     public static bool HasChanceCard(Player Player)
@@ -89,6 +87,11 @@ public static class CardDispatcher
 
     public static void UseChanceOf(Player Player)
     {
-        UseChance(Player, CardsOfPlayers[Player][0]);
+        List<CardType> List = CardsOfPlayers[Player];
+        UseChance(Player, List[0]);
+        List.RemoveAt(0);
+
+        if(List.Count == 0)
+            CardsOfPlayers.Remove(Player);
     }
 }
