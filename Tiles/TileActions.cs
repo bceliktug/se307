@@ -5,10 +5,9 @@ public class TileActions
     private readonly CardDispatcher CardDispatcher;
     private TileDispatcher TileDispatcher;
 
-    public TileActions(CardDispatcher CardDispatcher, TileDispatcher TileDispatcher)
+    public TileActions(CardDispatcher CardDispatcher)
     {
         this.CardDispatcher = CardDispatcher;
-        this.TileDispatcher = TileDispatcher;
     }
 
     public void setTileDispatcher(TileDispatcher tileDispatcher)

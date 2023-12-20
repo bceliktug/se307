@@ -11,9 +11,10 @@ public class TheGame
 
     public TheGame()
     {
-        TileActions tileActions = new TileActions(CardDispatcher, TileDispatcher);
-        TileDispatcher = new(tileActions);
-        tileActions.setTileDispatcher(TileDispatcher);
+        TileActions TileActions = new(CardDispatcher);
+        TileDispatcher = new(TileActions);
+        TileActions.setTileDispatcher(TileDispatcher);
+
         TileActionsUtil TileActionsUtil = new(TileDispatcher);
         ChanceCardActions = new ChanceCardActions(this, TileDispatcher, TileActionsUtil);
         CommunityCardActions = new CommunityCardActions(this, TileDispatcher, TileActionsUtil);
