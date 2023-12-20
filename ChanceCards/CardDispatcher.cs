@@ -1,43 +1,43 @@
 namespace Monopoly;
 
-public static class CardDispatcher
+public class CardDispatcher
 {
-    private static Action<Player>[] ArrChanceCardActions = Array.Empty<Action<Player>>();
-    private static Action<Player>[] ArrCommunityCardActions = Array.Empty<Action<Player>>();
-    private static readonly List<Action<Player>> CurrentChanceCardActions = new();
-    private static readonly List<Action<Player>> CurrentCommunityCardActions = new();
-    private readonly static Dictionary<Player, List<CardType>> CardsOfPlayers = new();
+    private Action<Player>[] ArrChanceCardActions = Array.Empty<Action<Player>>();
+    private Action<Player>[] ArrCommunityCardActions = Array.Empty<Action<Player>>();
+    private readonly List<Action<Player>> CurrentChanceCardActions = new();
+    private readonly List<Action<Player>> CurrentCommunityCardActions = new();
+    private readonly Dictionary<Player, List<CardType>> CardsOfPlayers = new();
 
-    public static void InitializeChanceCards(Action<Player>[] Actions)
+    public void InitializeChanceCards(Action<Player>[] Actions)
     {
         ArrChanceCardActions = Actions;
         ShuffleChanceCards();
     }
 
-    public static void InitializeCommunityCards(Action<Player>[] Actions)
+    public void InitializeCommunityCards(Action<Player>[] Actions)
     {
         ArrCommunityCardActions = Actions;
         ShuffleCommunityCards();
     }
 
-    private static void ShuffleChanceCards()
+    private void ShuffleChanceCards()
     {
         ShuffleCards(ArrChanceCardActions, CurrentChanceCardActions);
     }
 
-    private static void ShuffleCommunityCards()
+    private void ShuffleCommunityCards()
     {
         ShuffleCards(ArrCommunityCardActions, CurrentCommunityCardActions);
     }
 
-    private static void ShuffleCards(Action<Player>[] Array, List<Action<Player>> List)
+    private void ShuffleCards(Action<Player>[] Array, List<Action<Player>> List)
     {
         Util.ShuffleArray(Array);
         List.Clear();
         List.InsertRange(0, Array);
     }
 
-    public static void OnPlayerGetChance(Player Player, CardType CardType)
+    public void OnPlayerGetChance(Player Player, CardType CardType)
     {
         if (CardsOfPlayers.ContainsKey(Player))
             CardsOfPlayers[Player].Add(CardType);
@@ -52,7 +52,7 @@ public static class CardDispatcher
         }
     }
 
-    public static void UseChance(Player Player, CardType CardType)
+    public void UseChance(Player Player, CardType CardType)
     {
         if (CardType == CardType.CHANCE_CARD)
         {
@@ -68,30 +68,30 @@ public static class CardDispatcher
             ShuffleCards(ArrCommunityCardActions, CurrentCommunityCardActions);
     }
 
-    private static void ConsumeChance(List<Action<Player>> List, Player Player)
+    private void ConsumeChance(List<Action<Player>> List, Player Player)
     {
         List[0](Player);
         List.RemoveAt(0);
 
     }
 
-    public static bool HasChanceCard(Player Player)
+    public bool HasChanceCard(Player Player)
     {
         return CardsOfPlayers.ContainsKey(Player);
     }
 
-    public static int GetChanceCardCountOf(Player Player)
+    public int GetChanceCardCountOf(Player Player)
     {
         return CardsOfPlayers[Player].Count;
     }
 
-    public static void UseChanceOf(Player Player)
+    public void UseChanceOf(Player Player)
     {
         List<CardType> List = CardsOfPlayers[Player];
         UseChance(Player, List[0]);
         List.RemoveAt(0);
 
-        if(List.Count == 0)
+        if (List.Count == 0)
             CardsOfPlayers.Remove(Player);
     }
 }

@@ -6,10 +6,13 @@ public class Player
     private Tile? Tile;
     private int Balance = 0;
 
-    public Player(string Name, Tile? Tile)
+    private readonly TheGame TheGame;
+
+    public Player(string Name, Tile? Tile, TheGame TheGame)
     {
         this.Name = Name;
         this.Tile = Tile;
+        this.TheGame = TheGame;
     }
 
     public string GetName()

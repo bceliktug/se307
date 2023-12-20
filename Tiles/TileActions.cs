@@ -1,7 +1,16 @@
 namespace Monopoly;
 
-public static class TileActions
+public class TileActions
 {
+    private readonly CardDispatcher CardDispatcher;
+    private readonly TileDispatcher TileDispatcher;
+
+    public TileActions(CardDispatcher CardDispatcher, TileDispatcher TileDispatcher)
+    {
+        this.CardDispatcher = CardDispatcher;
+        this.TileDispatcher = TileDispatcher;
+    }
+
     public static void OnBeginningTile(Player Player, Tile Tile)
     {
         Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he collected 200Ꝟ.");
@@ -10,25 +19,25 @@ public static class TileActions
 
     public static void OnIncomeTaxTile(Player Player, Tile Tile)
     {
-        ActionsUtil.PayTax(Player, Tile.GetName(), 200);
+        TileActionsUtil.PayTax(Player, Tile.GetName(), 200);
     }
 
     public static void OnLuxuryTaxTile(Player Player, Tile Tile)
     {
-        ActionsUtil.PayTax(Player, Tile.GetName(), 150);
+        TileActionsUtil.PayTax(Player, Tile.GetName(), 150);
     }
 
-    public static void OnChanceTile(Player Player, Tile Tile)
+    public void OnChanceTile(Player Player, Tile Tile)
     {
         Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he gained a chance card.");
         CardDispatcher.OnPlayerGetChance(Player, CardType.CHANCE_CARD);
 
         Console.WriteLine($"Do you want to use your chance card immediately? Enter Y to use.");
-        if(Console.ReadLine() == "Y")
+        if (Console.ReadLine() == "Y")
             CardDispatcher.UseChance(Player, CardType.CHANCE_CARD);
     }
 
-    public static void OnCommunityChestTile(Player Player, Tile Tile)
+    public void OnCommunityChestTile(Player Player, Tile Tile)
     {
         Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he gained a community chance card.");
         CardDispatcher.OnPlayerGetChance(Player, CardType.COMMUNITY_CHEST_CARD);
@@ -89,61 +98,61 @@ public static class TileActions
 
     public static void OnElectricCompanyTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnUtilityTile(Player, Tile);
+        TileActionsUtil.OnUtilityTile(Player, Tile);
     }
 
     public static void OnWaterWorksTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnUtilityTile(Player, Tile);
+        TileActionsUtil.OnUtilityTile(Player, Tile);
     }
 
     public static void OnBrownRealEstateTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnRealEstateTile(Tile, Player, 60, 50, 450, new int[] { 4, 20, 60, 180, 320 });
+        TileActionsUtil.OnRealEstateTile(Tile, Player, 60, 50, 450, new int[] { 4, 20, 60, 180, 320 });
     }
 
     public static void OnLigthBlueRealEstateTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnRealEstateTile(Tile, Player, 120, 50, 600, new int[] { 8, 40, 100, 300, 450 });
+        TileActionsUtil.OnRealEstateTile(Tile, Player, 120, 50, 600, new int[] { 8, 40, 100, 300, 450 });
     }
 
     public static void OnPurpleRealEstateTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnRealEstateTile(Tile, Player, 160, 100, 900, new int[] { 12, 60, 180, 500, 700 });
+        TileActionsUtil.OnRealEstateTile(Tile, Player, 160, 100, 900, new int[] { 12, 60, 180, 500, 700 });
 
     }
 
     public static void OnOrangeRealEstateTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnRealEstateTile(Tile, Player, 200, 100, 1000, new int[] { 16, 80, 220, 600, 800 });
+        TileActionsUtil.OnRealEstateTile(Tile, Player, 200, 100, 1000, new int[] { 16, 80, 220, 600, 800 });
 
     }
 
     public static void OnRedRealEstateTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnRealEstateTile(Tile, Player, 240, 150, 1100, new int[] { 20, 100, 300, 750, 925 });
+        TileActionsUtil.OnRealEstateTile(Tile, Player, 240, 150, 1100, new int[] { 20, 100, 300, 750, 925 });
 
     }
 
     public static void OnYellowRealEstateTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnRealEstateTile(Tile, Player, 280, 150, 1200, new int[] { 24, 120, 360, 850, 1200 });
+        TileActionsUtil.OnRealEstateTile(Tile, Player, 280, 150, 1200, new int[] { 24, 120, 360, 850, 1200 });
     }
 
     public static void OnGreenRealEstateTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnRealEstateTile(Tile, Player, 320, 200, 1400, new int[] { 28, 150, 450, 1000, 1200 });
+        TileActionsUtil.OnRealEstateTile(Tile, Player, 320, 200, 1400, new int[] { 28, 150, 450, 1000, 1200 });
     }
 
     public static void OnBlueRealEstateTile(Player Player, Tile Tile)
     {
-        ActionsUtil.OnRealEstateTile(Tile, Player, 400, 200, 2000, new int[] { 50, 200, 600, 1400, 1700 });
+        TileActionsUtil.OnRealEstateTile(Tile, Player, 400, 200, 2000, new int[] { 50, 200, 600, 1400, 1700 });
     }
 
-    public static void OnGoToJailTile(Player Player, Tile Tile)
+    public void OnGoToJailTile(Player Player, Tile Tile)
     {
         Console.WriteLine($"Because Player {Player.GetName()} has landed into {Tile.GetName()}, he is going to the jail.");
-        Player.SetTile(TileRepository.GetTiles()[TileConstants.TILE_POSITION_JAIL]);
+        Player.SetTile(TileDispatcher.GetTiles()[TileConstants.TILE_POSITION_JAIL]);
 
     }
 

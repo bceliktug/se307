@@ -101,7 +101,7 @@ namespace Monopoly
 
         public static bool PlayerHasAllRealEstateTiles(Tile Tile, Player Player)
         {
-            int TotalNumberOfThisKindOfTile = TileRepository.GetOccurenceOfTile(Tile.GetName()),
+            int TotalNumberOfThisKindOfTile = TileDispatcher.GetOccurenceOfTile(Tile.GetName()),
                 Occurence = 0;
 
             foreach (var Entry in PropertiesOfTiles)

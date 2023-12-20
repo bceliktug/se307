@@ -1,7 +1,13 @@
 namespace Monopoly;
 
-public static class ActionsUtil
+public  class TileActionsUtil
 {
+    private readonly TileDispatcher TileDispatcher;
+
+    public TileActionsUtil(TileDispatcher TileDispatcher) {
+        this.TileDispatcher = TileDispatcher;
+    }
+
     public static void PayTax(Player Player, string TileName, int Amount)
     {
         Console.WriteLine($"Because Player {Player.GetName()} has landed into the {TileName}, he placed {Amount}Ꝟ on the board.");
@@ -32,9 +38,9 @@ public static class ActionsUtil
 
     }
 
-    public static void GoToNearestTileAndCollectIfPassedThroughTheBeginningTile(Player Player, Tile CurrentTile, string[] TargetTileNames, int Amount)
+    public void GoToNearestTileAndCollectIfPassedThroughTheBeginningTile(Player Player, Tile CurrentTile, string[] TargetTileNames, int Amount)
     {
-        Dictionary<int, Tile> Tiles = TileRepository.GetTiles();
+        Dictionary<int, Tile> Tiles = TileDispatcher.GetTiles();
         IEnumerable<Tile> NextTiles = Tiles.Where(Entry => Entry.Key > CurrentTile!.GetPosition()).Select(Entry => Entry.Value);
         foreach (Tile Tile in NextTiles)
             if (TargetTileNames.Contains(Tile.GetName()))

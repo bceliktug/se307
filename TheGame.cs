@@ -1,56 +1,46 @@
 namespace Monopoly;
 
-public static class TheGame
+public class TheGame
 {
-    private static List<Player> Players = new();
-    private static bool GameWon = false;
+    private List<Player> Players = new();
+    private readonly CardDispatcher CardDispatcher = new();
+    private readonly TileDispatcher TileDispatcher;
+    private readonly ChanceCardActions ChanceCardActions;
+    private readonly CommunityCardActions CommunityCardActions;
+    private bool GameWon = false;
 
-    public static List<Player> GetPlayers()
+    public TheGame()
+    {
+        TileDispatcher = new(new TileActions(CardDispatcher, TileDispatcher));
+        TileActionsUtil TileActionsUtil = new(TileDispatcher);
+        ChanceCardActions = new ChanceCardActions(this, TileDispatcher, TileActionsUtil);
+        CommunityCardActions = new CommunityCardActions(this, TileDispatcher, TileActionsUtil);
+
+        InitializeCards();
+    }
+
+    public List<Player> GetPlayers()
     {
         return Players;
     }
 
-    public static void StartTheGame()
+    public void StartTheGame()
     {
-        Players = CreatePlayers(GetPlayerCount());
+        Players = TheGameUtil.CreatePlayers(this);
 
         Console.WriteLine("\nRolling a dice to determine the starting player.");
         Console.WriteLine($"The Starting player is: Player#{Players[Util.RollDie(Players.Count - 1)].GetName()}");
 
-        InitializeCards();
-        TileRepository.InitiliazePropertyCountDictionary();
-
         StartLoop();
     }
 
-    private static List<Player> CreatePlayers(int PlayerCount)
-    {
-        List<Player> Players = new(PlayerCount);
-        for (int i = 0; i < PlayerCount; i++)
-            Players.Add(new Player(i.ToString(), null));
-
-        return Players;
-    }
-
-    private static int GetPlayerCount()
-    {
-        Console.WriteLine("Welcome to the Monopoly Game. Enter the player count.");
-
-        while (true)
-            if (int.TryParse(Console.ReadLine(), out int PlayerCount))
-                if (PlayerCount < 2 || PlayerCount > 4)
-                    Console.WriteLine("Invalid input. Player count must be between 2 - 4.");
-                else return PlayerCount;
-            else Console.WriteLine("Invalid input. Please enter a valid integer.");
-    }
-
-    private static void InitializeCards()
+    private void InitializeCards()
     {
         CardDispatcher.InitializeChanceCards(ChanceCardActions.Actions);
         CardDispatcher.InitializeCommunityCards(CommunityCardActions.Actions);
     }
 
-    private static void StartLoop()
+    private void StartLoop()
     {
         Console.WriteLine("\nThe game has started.");
 
@@ -60,7 +50,7 @@ public static class TheGame
             Player Player = Players[turn];
 
             if (Player.GetTile() == null)
-                Player.SetTile(TileRepository.GetTiles()[0]);
+                Player.SetTile(TileDispatcher.GetTiles()[0]);
 
             if (PunishmentDispatcher.HasPunishment(Player))
             {
@@ -83,10 +73,9 @@ public static class TheGame
     {
         Console.WriteLine($"\nBecause Player#{Player.GetName()} has punishment, his turn has passed.");
         PunishmentDispatcher.DecrementPunishment(Player);
-
     }
 
-    private static void Proceed(Player Player)
+    private void Proceed(Player Player)
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("\n------------ START TURN ------------");
@@ -103,13 +92,13 @@ public static class TheGame
                 Console.WriteLine($"Player#{Player.GetName()} declined to use his chance card, proceeding");
         }
 
-        if(GameWon)
+        if (GameWon)
             return;
 
         int result = Util.RollTwoDice();
         Console.WriteLine($"Player#{Player.GetName()} rolled {result}");
 
-        Player.SetTile(TileRepository.GetTiles()[(Player.GetTile()!.GetPosition() + result) % TileRepository.GetTiles().Count]);
+        Player.SetTile(TileDispatcher.GetTiles()[(Player.GetTile()!.GetPosition() + result) % TileDispatcher.GetTiles().Count]);
         PrintView();
 
         Console.ForegroundColor = ConsoleColor.Red;
@@ -117,11 +106,11 @@ public static class TheGame
         Console.ResetColor();
     }
 
-    private static void PrintView()
+    private void PrintView()
     {
         Console.WriteLine("\n--------- START INFORMATION ---------");
 
-        foreach (var Entry in TileRepository.GetTiles())
+        foreach (var Entry in TileDispatcher.GetTiles())
         {
             Tile Tile = Entry.Value;
             Console.Write("\n" + Tile.GetName());
@@ -161,7 +150,7 @@ public static class TheGame
         Console.WriteLine("\n----- END INFORMATION ------");
     }
 
-    private static bool GetTheChoice()
+    private bool GetTheChoice()
     {
         Console.WriteLine("\nIf you want to exit, enter 'EXIT'.");
         Console.WriteLine("If you want to view properties and then continue, enter 'VIEW'.");
@@ -176,7 +165,7 @@ public static class TheGame
         return true;
     }
 
-    private static void PrintProperties()
+    private void PrintProperties()
     {
         Console.WriteLine("");
 
@@ -196,7 +185,7 @@ public static class TheGame
         }
     }
 
-    public static void OnPlayerLosed(Player Player)
+    public void OnPlayerLosed(Player Player)
     {
         Console.WriteLine($"Player#{Player.GetName()} LOSED THE GAME.");
         PropertyDispatcher.OnPlayerLosed(Player);

@@ -1,17 +1,29 @@
 namespace Monopoly;
 
-public static class CommunityCardActions
+public class CommunityCardActions
 {
-    public static readonly Action<Player>[] Actions = {
-        Collect200,
-        Collect100,
-        PlaceOnTheBoard100,
-        PlaceAccordingToOwnedHousesAndHotels,
-        TravelToTheNearestUtility,
-        AdvanceToTheBeginningTile,
-        TravelToJail,
-        Collect100FromEachPlayer
-    };
+    private readonly TheGame TheGame;
+    private readonly TileDispatcher TileDispatcher;
+    private readonly TileActionsUtil TileActionsUtil;
+    public readonly Action<Player>[] Actions;
+
+    public CommunityCardActions(TheGame TheGame, TileDispatcher TileDispatcher, TileActionsUtil TileActionsUtil)
+    {
+        this.TheGame = TheGame;
+        this.TileDispatcher = TileDispatcher;
+        this.TileActionsUtil = TileActionsUtil;
+
+        Actions = new Action<Player>[] {
+            Collect200,
+            Collect100,
+            PlaceOnTheBoard100,
+            PlaceAccordingToOwnedHousesAndHotels,
+            TravelToTheNearestUtility,
+            AdvanceToTheBeginningTile,
+            TravelToJail,
+            Collect100FromEachPlayer
+        };
+    }
 
     public static void Collect200(Player Player)
     {
@@ -25,39 +37,39 @@ public static class CommunityCardActions
 
     public static void PlaceOnTheBoard100(Player Player)
     {
-        ActionsUtil.PlaceOnTheBoard(Player, 100);
+        TileActionsUtil.PlaceOnTheBoard(Player, 100);
     }
 
     public static void PlaceAccordingToOwnedHousesAndHotels(Player Player)
     {
-        ActionsUtil.PlaceAccordingToOwnedHousesAndHotels(Player, 25, 100);
+        TileActionsUtil.PlaceAccordingToOwnedHousesAndHotels(Player, 25, 100);
     }
 
-    public static void TravelToTheNearestUtility(Player Player)
+    public void TravelToTheNearestUtility(Player Player)
     {
         Console.WriteLine($"Player#{Player.GetName()} is to land to the nearest utility.");
-        ActionsUtil.GoToNearestTileAndCollectIfPassedThroughTheBeginningTile(
-            Player, 
-            Player.GetTile()!, 
-            new string[] { TileNames.TILE_NAME_ELECTRIC_COMPANY, TileNames.TILE_NAME_WATER_WORKS }, 
+        TileActionsUtil.GoToNearestTileAndCollectIfPassedThroughTheBeginningTile(
+            Player,
+            Player.GetTile()!,
+            new string[] { TileNames.TILE_NAME_ELECTRIC_COMPANY, TileNames.TILE_NAME_WATER_WORKS },
             200
         );
     }
 
-    public static void AdvanceToTheBeginningTile(Player Player)
+    public void AdvanceToTheBeginningTile(Player Player)
     {
-        Tile BeginningTile = TileRepository.GetTiles()[0];
+        Tile BeginningTile = TileDispatcher.GetTiles()[0];
         Console.WriteLine($"Player#{Player.GetName()} is to land to the {BeginningTile.GetName()}");
         Player.SetTile(BeginningTile);
     }
 
-    public static void TravelToJail(Player Player)
+    public void TravelToJail(Player Player)
     {
         Console.WriteLine($"Player#{Player.GetName()} is to land to the jail tile");
-        Player.SetTile(TileRepository.GetTiles()[TileConstants.TILE_POSITION_JAIL]);
+        Player.SetTile(TileDispatcher.GetTiles()[TileConstants.TILE_POSITION_JAIL]);
     }
 
-    public static void Collect100FromEachPlayer(Player Player)
+    public void Collect100FromEachPlayer(Player Player)
     {
         foreach (Player _Player in TheGame.GetPlayers())
         {

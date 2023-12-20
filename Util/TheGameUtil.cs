@@ -2,13 +2,13 @@ namespace Monopoly;
 
 public static class TheGameUtil
 {
-    public static List<Player> CreatePlayers()
+    public static List<Player> CreatePlayers(TheGame TheGame)
     {
         int PlayerCount = GetPlayerCount();
         
         List<Player> Players = new(PlayerCount);
         for (int i = 0; i < PlayerCount; i++)
-            Players.Add(new Player(i.ToString(), null));
+            Players.Add(new Player(i.ToString(), null, TheGame));
 
         return Players;
     }
